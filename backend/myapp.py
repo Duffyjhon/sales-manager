@@ -4,7 +4,7 @@ import os
 from backend.extensions import db, migrate, jwt, bcrypt
 from backend.config import Config
 
-from backend.routes.auth_routes import auth_bp
+from backend.routes.setup_routes import setup_bp
 from backend.routes.venda_routes import vendas_bp
 from backend.routes.dashboard_routes import dashboard_bp
 from backend.routes.export_routes import export_bp
@@ -40,11 +40,11 @@ def create_app():
         db.create_all()
 
     # Blueprints (sem duplicar prefixos)
-    app.register_blueprint(auth_bp)       # auth_bp já tem url_prefix="/auth"
+   
     app.register_blueprint(vendas_bp)     # vendas_bp já tem url_prefix="/vendas"
     app.register_blueprint(dashboard_bp)  # dashboard_bp já tem url_prefix="/dashboard"
     app.register_blueprint(export_bp)     # export_bp já tem url_prefix="/vendas/export"
-
+    app.register_blueprint(setup_bp)
     # Home -> login.html
     @app.route("/")
     def home():
