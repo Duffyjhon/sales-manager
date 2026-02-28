@@ -1,0 +1,24 @@
+# Python / Virtual env
+.venv/
+__pycache__/
+*.py[cod]
+
+# Flask / instance / db local
+instance/
+!instance/.gitkeep
+
+# Migrations cache
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# Exports / relatórios gerados
+exports/
+*.xlsx
+*.pdf
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="styles/dashboard.css">
+
+    <!-- CHART.JS É OBRIGATÓRIO -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- MENU LATERAL -->
+<aside class="sidebar">
+    <h2>Sistema</h2>
+
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="vendas.html">🛒 Vendas</a>
+
+    <button id="logout">🚪 Logout</button>
+
+    <div class="tema-container">
+        <label class="switch">
+            <input type="checkbox" id="tema-toggle">
+            <span class="slider"></span>
+        </label>
+        <span>Tema Escuro</span>
+    </div>
+</aside>
+
+<!-- CONTEÚDO -->
+<main>
+    <h1>Dashboard</h1>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Total de Vendas</h3>
+            <p id="total-vendas">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Valor Total</h3>
+            <p id="total-valor">R$ 0,00</p>
+        </div>
+
+        <div class="card">
+            <h3>Valor Médio</h3>
+            <p id="media-valor">R$ 0,00</p>
+        </div>
+    </div>
+
+    <canvas id="grafico"></canvas>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* ===== THEME ===== */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--texto);
+    transition: 0.3s;
+}
+
+:root {
+    --bg: #f2f5f9;
+    --card: #ffffff;
+    --texto: #333;
+    --azul: #4e73df;
+    --verde: #1cc88a;
+    --amarelo: #f6c23e;
+    --vermelho: #e74a3b;
+}
+
+body.dark {
+    --bg: #1a1a1a;
+    --card: #2a2a2a;
+    --texto: #eee;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: var(--card);
+    padding: 25px;
+    position: fixed;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+    border-right: 1px solid #ddd;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    background: transparent;
+    color: var(--texto);
+    font-weight: 500;
+    border-radius: 6px;
+    transition: 0.25s;
+}
+
+.sidebar a:hover {
+    background: var(--azul);
+    color: white;
+}
+
+#logout {
+    width: 100%;
+    padding: 12px;
+    background: var(--vermelho);
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===== MAIN ===== */
+main {
+    margin-left: 280px;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* ===== CARDS ===== */
+.cards {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.card {
+    flex: 1;
+    padding: 25px;
+    border-radius: 12px;
+    background: var(--card);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    border-left: 6px solid var(--azul);
+}
+
+.card:nth-child(2) {
+    border-left-color: var(--verde);
+}
+
+.card:nth-child(3) {
+    border-left-color: var(--amarelo);
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.card p {
+    font-size: 26px;
+    margin: 12px 0 0;
+    font-weight: bold;
+}
+
+/* ===== CANVAS ===== */
+canvas {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}

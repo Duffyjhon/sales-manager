@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Vendas</title>
+
+    <link rel="stylesheet" href="styles/vendas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Estilo básico caso o CSS não carregue */
+        body.dark {
+            background: #1a1a1a;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <h2>Vendas</h2>
+
+    <div class="topbar-actions">
+
+        <!-- Toggle Tema -->
+        <label class="switch">
+            <input type="checkbox" id="tema-toggle">
+            <span class="slider"></span>
+        </label>
+
+        <!-- Voltar -->
+        <button id="voltar-dashboard" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Voltar
+        </button>
+
+        <!-- Logout -->
+        <button id="logout" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </button>
+    </div>
+</header>
+
+<!-- FORMULÁRIO -->
+<form id="venda-form" class="card">
+    <h3><i class="fa-solid fa-cart-plus"></i> Registrar venda</h3>
+
+    <input type="text" id="cliente" placeholder="Cliente" required>
+    <input type="text" id="produto" placeholder="Produto" required>
+    <input type="number" id="valor" placeholder="Valor (R$)" required step="0.01">
+
+    <button type="submit">Registrar</button>
+</form>
+
+<!-- FILTROS -->
+<div class="card" id="filtros">
+    <input type="text" id="busca" placeholder="Buscar por cliente...">
+
+    <select id="filtro-produto">
+        <option value="">Todos os produtos</option>
+    </select>
+</div>
+
+<!-- BOTÕES DE EXPORTAÇÃO -->
+<div class="card export-card">
+    <button id="exportar-excel"><i class="fa-solid fa-file-excel"></i> Exportar Excel</button>
+    <button id="exportar-pdf"><i class="fa-solid fa-file-pdf"></i> Exportar PDF</button>
+</div>
+
+<!-- LISTA -->
+<section>
+    <h3>Vendas registradas</h3>
+    <div id="lista-vendas"></div>
+</section>
+
+<script src="js/api.js"></script>
+<script src="js/vendas.js"></script>
+
+</body>
+</html>

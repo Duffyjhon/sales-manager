@@ -1,0 +1,151 @@
+/* ===== Layout base ===== */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    padding: 20px;
+    color: #333;
+}
+
+/* Tema escuro */
+body.dark {
+    background: #1c1c1c;
+    color: #eee;
+}
+
+body.dark .card {
+    background: #2a2a2a;
+    color: #eee;
+}
+
+body.dark input,
+body.dark select {
+    background: #3a3a3a;
+    color: white;
+    border: 1px solid #555;
+}
+
+body.dark .export-btn {
+    opacity: 0.9;
+}
+
+/* ===== Topbar ===== */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.logout-btn,
+.back-btn {
+    background: #d9534f;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.back-btn {
+    background: #0275d8;
+}
+
+/* ===== Cards ===== */
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* ===== Inputs ===== */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+    margin-top: 12px;
+    padding: 10px;
+    background: #28a745;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+/* ===== Exportações ===== */
+.filtros-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto auto;
+    gap: 12px;
+}
+
+.export-btn {
+    cursor: pointer;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.export-btn.excel {
+    background: #1d6f42;
+    color: #fff;
+}
+
+.export-btn.pdf {
+    background: #b83232;
+    color: white;
+}
+
+/* Lista de vendas */
+.venda-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+body.dark .venda-item {
+    background: #2a2a2a;
+}
+.delete-btn {
+    margin-top: 8px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+body.dark .delete-btn {
+    background: #c0392b;
+}
+
+body.dark .delete-btn:hover {
+    background: #e74c3c;
+}
