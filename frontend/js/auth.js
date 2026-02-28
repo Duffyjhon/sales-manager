@@ -1,24 +1,32 @@
-document.getElementById("login-form").addEventListener("submit", async (e) => {
+// frontend/js/auth.js
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("login-form");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
 
-    // envia para backend
-    const res = await apiPost("/auth/login", {
-        username,
-        password
-    });
+    const res = await apiPost("/auth/login", { username, password });
 
-    // se backend retornou erro
-    if (res.error || !res.token) {
-        alert(res.error || "Usuário ou senha incorretos");
-        return;
+    if (!res.ok) {
+      // seu backend usa {error: "..."}
+      alert((res.data && res.data.error) || "Usuário ou senha incorretos");
+      return;
     }
 
-    // salva token
-    localStorage.setItem("token", res.token);
+    // seu backend retorna {token: "..."}
+    const token = res.data && (res.data.token || res.data.access_token);
+    if (!token) {
+      alert("Login ok, mas não recebi o token. Verifique a rota /auth/login.");
+      return;
+    }
 
-    // redireciona
-    window.location.href = "dashboard.html";
+    localStorage.setItem("token", token);
+
+    // no Render e local funciona assim:
+    window.location.href = "/dashboard.html";
+  });
 });

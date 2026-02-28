@@ -1,39 +1,56 @@
+// frontend/js/api.js
+// Base URL vazio = mesma origem (funciona no Render e local)
 const API_URL = "";
 
-// GET (buscar dados)
+/**
+ * Faz request e retorna um objeto padronizado:
+ * { ok: boolean, status: number, data: any, raw?: string }
+ */
+async function apiRequest(method, endpoint, body = null) {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  const token = localStorage.getItem("token");
+  if (token) headers["Authorization"] = "Bearer " + token;
+
+  const options = { method, headers };
+  if (body !== null) options.body = JSON.stringify(body);
+
+  let res;
+  try {
+    res = await fetch(API_URL + endpoint, options);
+  } catch (err) {
+    return { ok: false, status: 0, data: { error: "Falha de rede" }, raw: String(err) };
+  }
+
+  const contentType = res.headers.get("content-type") || "";
+  let data = null;
+  let raw = "";
+
+  try {
+    if (contentType.includes("application/json")) {
+      data = await res.json();
+    } else {
+      raw = await res.text();
+      data = raw;
+    }
+  } catch (e) {
+    raw = "Falha ao ler resposta";
+    data = { error: raw };
+  }
+
+  return { ok: res.ok, status: res.status, data, raw };
+}
+
 async function apiGet(endpoint) {
-    const resposta = await fetch(API_URL + endpoint, {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "application/json"
-        }
-    });
-
-    return resposta.json();
+  return apiRequest("GET", endpoint);
 }
 
-// POST (enviar dados)
 async function apiPost(endpoint, data) {
-    const resposta = await fetch(API_URL + endpoint, {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    });
-
-    return resposta.json();
+  return apiRequest("POST", endpoint, data);
 }
-async function apiDelete(endpoint) {
-    const resposta = await fetch(API_URL + endpoint, {
-        method: "DELETE",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token"),
-            "Content-Type": "application/json"
-        }
-    });
 
-    return resposta.json();
+async function apiDelete(endpoint) {
+  return apiRequest("DELETE", endpoint);
 }
