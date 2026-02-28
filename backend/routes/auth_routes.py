@@ -1,25 +1,21 @@
-from flask import Blueprint, jsonify
-from backend.extensions import db, bcrypt
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import create_access_token
 from backend.models.user import User
 
-setup_bp = Blueprint("setup", __name__, url_prefix="/setup")
+auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
+@auth_bp.post("/login")
+def login():
+    data = request.get_json(silent=True) or {}
+    username = (data.get("username") or "").strip()
+    password = data.get("password") or ""
 
-@setup_bp.get("/create-admin")
-def create_admin():
-    # ⚠️ Evita criar duplicado
-    if User.query.filter_by(username="admin").first():
-        return jsonify({"message": "Admin já existe"})
+    if not username or not password:
+        return jsonify({"error": "Informe usuário e senha"}), 400
 
-    senha_hash = bcrypt.generate_password_hash("123456").decode("utf-8")
+    user = User.query.filter_by(username=username).first()
+    if not user or not user.check_password(password):
+        return jsonify({"error": "Usuário ou senha incorretos"}), 401
 
-    admin = User(username="admin", password_hash=senha_hash)
-
-    db.session.add(admin)
-    db.session.commit()
-
-    return jsonify({
-        "message": "Admin criado com sucesso",
-        "username": "admin",
-        "password": "123456"
-    })
+    token = create_access_token(identity={"id": user.id, "username": user.username})
+    return jsonify({"token": token}), 200
