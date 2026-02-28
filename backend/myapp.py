@@ -40,7 +40,7 @@ def create_app():
         db.create_all()
 
     # Blueprints (sem duplicar prefixos)
-   
+
     app.register_blueprint(vendas_bp)     # vendas_bp já tem url_prefix="/vendas"
     app.register_blueprint(dashboard_bp)  # dashboard_bp já tem url_prefix="/dashboard"
     app.register_blueprint(export_bp)     # export_bp já tem url_prefix="/vendas/export"
