@@ -24,10 +24,13 @@ def create_app():
     # ✅ Garante que a pasta instance exista no Render e local
     os.makedirs(app.instance_path, exist_ok=True)
 
-    # ✅ Força o SQLite a usar caminho absoluto (evita erro no Render)
-    db_path = os.path.join(app.instance_path, "database.db")
-    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    database_url = os.getenv("DATABASE_URL")
+    if not database_url:
+        os.makedirs(app.instance_path, exist_ok=True)
+        db_path = os.path.join(app.instance_path, "database.db")
+        app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+
+
 
     # Extensões
     db.init_app(app)
