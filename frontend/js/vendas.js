@@ -45,12 +45,11 @@ document.getElementById("venda-form").addEventListener("submit", async (e) => {
     const produto = document.getElementById("produto").value;
     const valor = parseFloat(document.getElementById("valor").value);
 
-    const result = await apiPost("/vendas/", { cliente, produto, valor });
-
-    if (result.error) {
-        alert("Erro ao registrar venda");
-        return;
-    }
+  const result = await apiPost("/vendas/", { cliente, produto, valor });
+if (!result.ok) {
+  alert((result.data && result.data.error) || `Erro ao registrar venda (${result.status})`);
+  return;
+}
 
     alert("Venda registrada!");
     e.target.reset();
@@ -61,9 +60,15 @@ document.getElementById("venda-form").addEventListener("submit", async (e) => {
 // CARREGAR LISTA
 // =======================
 async function carregarVendas() {
-    todasVendas = await apiGet("/vendas/");
-    preencherFiltroProdutos();
-    atualizarLista();
+  const resp = await apiGet("/vendas/");
+  if (!resp.ok) {
+    alert((resp.data && resp.data.error) || `Erro ao carregar vendas (${resp.status})`);
+    todasVendas = [];
+    return;
+  }
+  todasVendas = resp.data || [];
+  preencherFiltroProdutos();
+  atualizarLista();
 }
 
 // =======================

@@ -4,15 +4,21 @@ if (!localStorage.getItem("token")) {
 }
 
 async function carregarDashboard() {
-    const dados = await apiGet("/dashboard/");
+  const resp = await apiGet("/dashboard/");
+  console.log("Dados recebidos:", resp);
 
-    console.log("Dados recebidos:", dados);
+  if (!resp.ok) {
+    alert((resp.data && resp.data.error) || `Erro ao carregar dashboard (${resp.status})`);
+    return;
+  }
 
-    document.getElementById("total-vendas").innerText = dados.total_vendas;
-    document.getElementById("total-valor").innerText = "R$ " + dados.total_valor.toFixed(2);
-    document.getElementById("media-valor").innerText = "R$ " + dados.media_valor.toFixed(2);
+  const dados = resp.data;
 
-    gerarGrafico(dados.vendas_por_produto);
+  document.getElementById("total-vendas").innerText = dados.total_vendas ?? 0;
+  document.getElementById("total-valor").innerText = "R$ " + Number(dados.total_valor ?? 0).toFixed(2);
+  document.getElementById("media-valor").innerText = "R$ " + Number(dados.media_valor ?? 0).toFixed(2);
+
+  gerarGrafico(dados.vendas_por_produto || {});
 }
 
 function gerarGrafico(vendas) {
