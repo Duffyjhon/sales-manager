@@ -8,7 +8,7 @@ from backend.routes.setup_routes import setup_bp
 from backend.routes.venda_routes import vendas_bp
 from backend.routes.dashboard_routes import dashboard_bp
 from backend.routes.export_routes import export_bp
-
+from backend.routes.auth_login_routes import auth_bp
 
 def create_app():
     app = Flask(
@@ -45,6 +45,7 @@ def create_app():
     app.register_blueprint(dashboard_bp)  # dashboard_bp já tem url_prefix="/dashboard"
     app.register_blueprint(export_bp)     # export_bp já tem url_prefix="/vendas/export"
     app.register_blueprint(setup_bp)
+    app.register_blueprint(auth_bp)
     # Home -> login.html
     @app.route("/")
     def home():
