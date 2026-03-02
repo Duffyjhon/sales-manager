@@ -1,85 +1,78 @@
-# 💼 Sales Manager — Sistema de Gestão de Vendas
+# 🛒 Sales Manager — Sistema de Gestão de Vendas
 
-Sistema completo de gerenciamento de vendas com dashboard, autenticação JWT, relatórios e exportação em Excel e PDF.
+Sistema web para gerenciamento de vendas com autenticação JWT, dashboard interativo e exportação de dados.
 
----
-
-## 🚀 Demonstração
-
-Aplicação web com:
-
-* 🔐 Login seguro com JWT
-* 📊 Dashboard com estatísticas
-* 🛒 Registro e listagem de vendas
-* 🔎 Busca e filtro por produto
-* 🗑️ Exclusão de vendas
-* 📄 Exportação para Excel e PDF
-* 🌙 Tema escuro
-* 🎨 Interface moderna
+🔗 **Aplicação online (Render):**  
+https://sales-manager-o4kb.onrender.com
 
 ---
 
-## 🖥️ Tecnologias Utilizadas
+## ✨ Funcionalidades
+
+- 🔐 Login com JWT
+- 📊 Dashboard com métricas
+- 💰 Cadastro de vendas
+- 🔎 Filtro e busca de vendas
+- ❌ Exclusão de vendas
+- 📤 Exportação para Excel (.xlsx)
+- 📄 Exportação para PDF (.pdf)
+- 🌙 Tema escuro com persistência
+
+---
+
+## 🧰 Tecnologias Utilizadas
 
 ### Backend
-
-* Python 3
-* Flask
-* Flask-JWT-Extended
-* Flask-SQLAlchemy
-* Flask-Migrate
-* SQLite
-* ReportLab (PDF)
-* OpenPyXL (Excel)
+- Python
+- Flask
+- Flask-JWT-Extended
+- Flask-SQLAlchemy
+- PostgreSQL (produção)
+- SQLite (fallback local)
+- Gunicorn
+- ReportLab (PDF)
+- OpenPyXL (Excel)
 
 ### Frontend
-
-* HTML5
-* CSS3
-* JavaScript (Vanilla)
-* Chart.js
-* Font Awesome
-
----
-
-## 📂 Estrutura do Projeto
-
-```
-sales-manager/
-│
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   ├── schemas/
-│   ├── utils/
-│   ├── myapp.py
-│   └── config.py
-│
-├── frontend/
-│   ├── login.html
-│   ├── dashboard.html
-│   ├── vendas.html
-│   ├── styles/
-│   └── js/
-│
-├── migrations/
-├── instance/
-└── README.md
-```
+- HTML5
+- CSS3
+- JavaScript (Vanilla JS)
+- Chart.js
+- Font Awesome
 
 ---
 
-## ⚙️ Como executar localmente
+## 🧪 Credenciais para Teste
 
-### 1️⃣ Clone o repositório
+Usuário padrão (caso já criado):
+
+Usuário: admin  
+Senha: 123456  
+
+Se necessário, crie o usuário acessando uma vez:
+```
+/setup/create-admin
+```
+
+⚠️ Observação: Em ambiente real de produção, esse endpoint deve ser removido ou protegido.
+
+---
+
+## 🗄️ Banco de Dados
+
+- Produção (Render): PostgreSQL via variável `DATABASE_URL`
+- Ambiente local: SQLite automático se `DATABASE_URL` não estiver definida
+
+---
+
+## 🚀 Como Rodar Localmente
+
+### 1️⃣ Clonar o repositório
 
 ```bash
 git clone https://github.com/Duffyjhon/sales-manager.git
 cd sales-manager
 ```
-
----
 
 ### 2️⃣ Criar ambiente virtual
 
@@ -87,99 +80,103 @@ cd sales-manager
 python -m venv .venv
 ```
 
-Ativar:
+### 3️⃣ Ativar ambiente virtual
 
-Windows:
-
+Windows (PowerShell):
 ```bash
-.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
+```
+
+Windows (CMD):
+```bash
+.\.venv\Scripts\activate.bat
 ```
 
 Linux/macOS:
-
 ```bash
 source .venv/bin/activate
 ```
 
----
-
-### 3️⃣ Instalar dependências
+### 4️⃣ Instalar dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-### 4️⃣ Executar o servidor
+### 5️⃣ Executar aplicação
 
 ```bash
-python backend/myapp.py
+python run.py
 ```
 
----
-
-### 5️⃣ Acessar no navegador
-
+Acesse:
 ```
 http://127.0.0.1:5000
 ```
 
 ---
 
-## 🔐 Autenticação
+## ☁️ Deploy no Render
 
-O sistema utiliza tokens JWT para proteger rotas da API.
+Web Service (Python)
 
-Após login, o token é armazenado no navegador e usado nas requisições.
+Build Command:
+```
+pip install -r requirements.txt
+```
 
----
+Start Command:
+```
+gunicorn "backend.myapp:create_app()" --bind 0.0.0.0:$PORT
+```
 
-## 📊 Funcionalidades
-
-### ✔ Dashboard
-
-* Total de vendas
-* Valor total
-* Valor médio
-* Vendas por produto (gráfico)
-
-### ✔ Gestão de vendas
-
-* Registrar venda
-* Listar vendas
-* Buscar por cliente
-* Filtrar por produto
-* Excluir vendas
-
-### ✔ Exportação
-
-* Excel (.xlsx)
-* PDF (.pdf)
+Variáveis de ambiente necessárias:
+- DATABASE_URL
+- SECRET_KEY
+- JWT_SECRET_KEY
 
 ---
 
-## 🌙 Tema Escuro
+## 📂 Estrutura do Projeto
 
-O sistema possui modo dark com persistência de preferência.
+```
+sales-manager/
+├── backend/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── config.py
+│   └── myapp.py
+├── frontend/
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── vendas.html
+│   ├── styles/
+│   └── js/
+├── migrations/
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## 🧠 Objetivo do Projeto
+## 🛣️ Melhorias Futuras
 
-Projeto desenvolvido para prática de desenvolvimento full-stack com Flask e JavaScript puro, simulando um sistema real de uso empresarial.
+- Remover/proteger `/setup/create-admin`
+- Testes automatizados
+- Controle de permissões (admin/usuário)
+- CI/CD
+- Dockerização
 
 ---
 
 ## 👨‍💻 Autor
 
-**João Vitor Mendonça**
-
-GitHub:
-👉 https://github.com/Duffyjhon
+João Vitor Mendonça  
+GitHub: https://github.com/Duffyjhon
 
 ---
 
-## ⭐ Licença
+## 📄 Licença
 
-Este projeto é open source e pode ser usado para fins educacionais e portfólio.
+MIT
