@@ -7,6 +7,10 @@ async function carregarDashboard() {
   const resp = await apiGet("/dashboard/");
   console.log("Dados recebidos:", resp);
 
+function formatBRL(value) {
+  const n = Number(value) || 0;
+  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
   if (!resp.ok) {
     alert((resp.data && resp.data.error) || `Erro ao carregar dashboard (${resp.status})`);
     return;
@@ -15,8 +19,8 @@ async function carregarDashboard() {
   const dados = resp.data;
 
   document.getElementById("total-vendas").innerText = dados.total_vendas ?? 0;
-  document.getElementById("total-valor").innerText = "R$ " + Number(dados.total_valor ?? 0).toFixed(2);
-  document.getElementById("media-valor").innerText = "R$ " + Number(dados.media_valor ?? 0).toFixed(2);
+  document.getElementById("total-valor").innerText = formatBRL(dados.total_valor);
+  document.getElementById("media-valor").innerText = formatBRL(dados.media_valor);
 
   gerarGrafico(dados.vendas_por_produto || {});
 }
@@ -37,7 +41,12 @@ function gerarGrafico(vendas) {
         options: {
             plugins: { legend: false },
             scales: {
-                y: { beginAtZero: true },
+               y: {
+                  beginAtZero: true,
+                  ticks: {
+                    callback: (value) => formatBRL(value)
+                  }
+               },
                 x: { grid: { display: false } }
             }
         }
