@@ -97,7 +97,7 @@ function gerarGrafico(vendas) {
           grid: { display: false }
         }
       }
-    }
+   
   });
 }
 
