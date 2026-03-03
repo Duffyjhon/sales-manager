@@ -52,17 +52,20 @@ function gerarGrafico(vendas) {
     type: "line",
     data: {
       labels,
-      datasets: [
-        {
-          label: "Faturamento (R$)",
-          data: values,
-          fill: true,
-          tension: 0.35,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          borderWidth: 3
-        }
-      ]
+     datasets: [
+  {
+    label: "Faturamento (R$)",
+    data: values,
+    fill: true,
+    tension: 0.35,
+    pointRadius: 5,
+    pointHoverRadius: 7,
+    borderWidth: 3,
+    borderColor: "#4f7cff",
+    backgroundColor: "rgba(79, 124, 255, 0.15)"
+  }
+]
+
     },
     options: {
       responsive: true,
@@ -77,9 +80,13 @@ function gerarGrafico(vendas) {
       },
       scales: {
         y: {
-          beginAtZero: true,
-          ticks: {
-            callback: (value) => formatBRL(value)
+         beginAtZero: true,
+         grid: {
+            color: "rgba(255,255,255,0.05)"
+      }
+  },
+  ticks: {
+    callback: (value) => formatBRL(value)
           }
         },
         x: {
