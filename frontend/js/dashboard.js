@@ -6,6 +6,7 @@ if (!localStorage.getItem("token")) {
 async function carregarDashboard() {
   const resp = await apiGet("/dashboard/");
   console.log("Dados recebidos:", resp);
+  console.log("DADOS DASHBOARD:", dados);
 
 function formatBRL(value) {
   const n = Number(value) || 0;
