@@ -2,28 +2,32 @@
 if (!localStorage.getItem("token")) {
     window.location.href = "login.html";
 }
-
-async function carregarDashboard() {
-  const resp = await apiGet("/dashboard/");
-  console.log("Dados recebidos:", resp);
-  console.log("DADOS DASHBOARD:", dados);
-
 function formatBRL(value) {
   const n = Number(value) || 0;
   return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
+
+async function carregarDashboard() {
+  const resp = await apiGet("/dashboard/");
+  console.log("Dados recebidos:", resp);
+
   if (!resp.ok) {
     alert((resp.data && resp.data.error) || `Erro ao carregar dashboard (${resp.status})`);
     return;
   }
 
-  const dados = resp.data;
+  const dados = resp.data; // ✅ primeiro define, depois usa
+  console.log("DADOS:", dados);
 
   document.getElementById("total-vendas").innerText = dados.total_vendas ?? 0;
   document.getElementById("total-valor").innerText = formatBRL(dados.total_valor);
   document.getElementById("media-valor").innerText = formatBRL(dados.media_valor);
 
-  gerarGrafico(dados.vendas_por_mes || {});
+  const serie = (dados.vendas_por_mes && Object.keys(dados.vendas_por_mes).length)
+    ? dados.vendas_por_mes
+    : (dados.vendas_por_produto || {});
+
+  gerarGrafico(serie);
 }
 
 function gerarGrafico(vendas) {
