@@ -134,3 +134,7 @@ canvas {
   border-radius: 12px;
   padding: 10px;
 }
+.indicador-extra p {
+  font-size: 22px;
+  font-weight: bold;
+}

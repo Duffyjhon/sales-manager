@@ -26,7 +26,11 @@ async function carregarDashboard() {
   const serie = (dados.vendas_por_mes && Object.keys(dados.vendas_por_mes).length)
     ? dados.vendas_por_mes
     : (dados.vendas_por_produto || {});
+document.getElementById("crescimento").innerText =
+    dados.crescimento_percentual + "%";
 
+document.getElementById("melhor-mes").innerText =
+    dados.melhor_mes ?? "-";
   gerarGrafico(serie);
 }
 
