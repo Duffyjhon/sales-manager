@@ -1,22 +1,53 @@
-# 🛒 Sales Manager — Sistema de Gestão de Vendas
+# 📊 Sales Manager — Sistema de Gestão de Vendas (Deploy em Produção)
 
-Sistema web para gerenciamento de vendas com autenticação JWT, dashboard interativo e exportação de dados.
+Aplicação full stack desenvolvida com foco em backend, autenticação segura e banco de dados em produção.
 
-🔗 **Aplicação online (Render):**  
-https://sales-manager-o4kb.onrender.com
+🔗 **Aplicação online:**  
+https://sales-manager-o4kb.onrender.com  
 
 ---
 
-## ✨ Funcionalidades
+## 🎯 Objetivo do Projeto
 
-- 🔐 Login com JWT
-- 📊 Dashboard com métricas
-- 💰 Cadastro de vendas
-- 🔎 Filtro e busca de vendas
-- ❌ Exclusão de vendas
-- 📤 Exportação para Excel (.xlsx)
-- 📄 Exportação para PDF (.pdf)
-- 🌙 Tema escuro com persistência
+Construir um sistema completo de gestão de vendas com:
+
+- API REST estruturada
+- Autenticação JWT
+- Banco de dados relacional em produção
+- Dashboard com métricas e crescimento mensal
+- Exportação de relatórios (PDF e Excel)
+- Deploy em ambiente cloud
+
+O projeto foi desenvolvido como estudo prático focado em arquitetura backend e resolução de problemas reais em ambiente de produção.
+
+---
+
+## 🚀 Principais Funcionalidades
+
+🔐 Autenticação segura com JWT  
+📊 Dashboard com:
+- Total de vendas
+- Valor total
+- Valor médio
+- Crescimento percentual mensal
+- Melhor mês de faturamento  
+
+💰 CRUD completo de vendas  
+🔎 Filtro e busca dinâmica  
+📤 Exportação para Excel (.xlsx)  
+📄 Exportação para PDF (.pdf)  
+🌙 Tema escuro persistente  
+
+---
+
+## 🧠 Desafios Técnicos Resolvidos
+
+- Migração de SQLite (ambiente local) para PostgreSQL (produção)
+- Tratamento de erros HTTP (400, 401, 405)
+- Configuração de variáveis de ambiente no Render
+- Agrupamento de vendas por mês no backend
+- Formatação monetária em padrão brasileiro (BRL)
+- Organização em camadas (models, routes, services)
 
 ---
 
