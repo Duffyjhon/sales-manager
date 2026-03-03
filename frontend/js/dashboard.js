@@ -26,9 +26,18 @@ async function carregarDashboard() {
   const serie = (dados.vendas_por_mes && Object.keys(dados.vendas_por_mes).length)
     ? dados.vendas_por_mes
     : (dados.vendas_por_produto || {});
-document.getElementById("crescimento").innerText =
-    dados.crescimento_percentual + "%";
+  const crescimentoEl = document.getElementById("crescimento");
+const crescimento = dados.crescimento_percentual || 0;
 
+crescimentoEl.innerText = crescimento + "%";
+
+if (crescimento > 0) {
+    crescimentoEl.style.color = "#22c55e"; // verde
+} else if (crescimento < 0) {
+    crescimentoEl.style.color = "#ef4444"; // vermelho
+} else {
+    crescimentoEl.style.color = "#94a3b8"; // neutro
+}
 document.getElementById("melhor-mes").innerText =
     dados.melhor_mes ?? "-";
   gerarGrafico(serie);
@@ -97,7 +106,7 @@ function gerarGrafico(vendas) {
           grid: { display: false }
         }
       }
-   
+
   });
 }
 
