@@ -22,7 +22,7 @@ function formatBRL(value) {
   document.getElementById("total-valor").innerText = formatBRL(dados.total_valor);
   document.getElementById("media-valor").innerText = formatBRL(dados.media_valor);
 
-  gerarGrafico(dados.vendas_por_produto || {});
+  gerarGrafico(dados.vendas_por_mes || {});
 }
 
 function gerarGrafico(vendas) {
@@ -33,7 +33,7 @@ function gerarGrafico(vendas) {
         data: {
             labels: Object.keys(vendas),
             datasets: [{
-                label: "Vendas (R$)",
+                label: "Faturamento por mês (R$)",
                 data: Object.values(vendas),
                 borderRadius: 6
             }]

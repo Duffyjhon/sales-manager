@@ -8,6 +8,26 @@ if (!localStorage.getItem("token")) {
 let todasVendas = [];
 
 // =======================
+// FUNÇÕES DE FORMATAÇÃO (NOVO)
+// =======================
+function formatBRL(value) {
+    const n = Number(value) || 0;
+    return n.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+function formatDateBR(dateString) {
+    if (!dateString) return "";
+
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return "";
+
+    return d.toLocaleDateString("pt-BR");
+}
+
+// =======================
 // TEMA ESCURO
 // =======================
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,21 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
 // REGISTRAR VENDA
 // =======================
 document.getElementById("venda-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const cliente = document.getElementById("cliente").value;
-    const produto = document.getElementById("produto").value;
-    const valor = parseFloat(document.getElementById("valor").value);
+  const cliente = document.getElementById("cliente").value.trim();
+  const produto = document.getElementById("produto").value.trim();
+  const valor = parseFloat(document.getElementById("valor").value);
+  const data_venda = document.getElementById("data_venda")?.value; // "YYYY-MM-DD" ou ""
 
-  const result = await apiPost("/vendas/", { cliente, produto, valor });
-if (!result.ok) {
-  alert((result.data && result.data.error) || `Erro ao registrar venda (${result.status})`);
-  return;
-}
+  const payload = { cliente, produto, valor };
 
-    alert("Venda registrada!");
-    e.target.reset();
-    carregarVendas();
+  if (data_venda) {
+    payload.data_venda = data_venda;
+  }
+
+  const result = await apiPost("/vendas/", payload);
+
+  if (!result.ok) {
+    alert((result.data && result.data.error) || `Erro ao registrar venda (${result.status})`);
+    return;
+  }
+
+  alert("Venda registrada!");
+  e.target.reset();
+  carregarVendas();
 });
 
 // =======================
@@ -96,7 +124,8 @@ function atualizarLista() {
         item.innerHTML = `
             <strong>${v.cliente}</strong><br>
             Produto: ${v.produto}<br>
-            Valor: R$ ${v.valor.toFixed(2)}
+            Valor: ${formatBRL(v.valor)}<br>
+            Data: ${formatDateBR(v.data_venda)}
             <br>
             <button class="btn-delete" onclick="deletarVenda(${v.id})">Excluir</button>
         `;

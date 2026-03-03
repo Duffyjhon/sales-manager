@@ -15,11 +15,15 @@ def criar_venda():
     if erros:
         return jsonify(erros), 400
 
-    venda = VendaService.criar_venda(
-        cliente=dados["cliente"],
-        produto=dados["produto"],
-        valor=dados["valor"]
-    )
+    try:
+        venda = VendaService.criar_venda(
+            cliente=dados["cliente"],
+            produto=dados["produto"],
+            valor=dados["valor"],
+            data_venda=dados.get("data_venda")  # 👈 AGORA PASSA A DATA
+        )
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
     return venda_schema.dump(venda), 201
 
