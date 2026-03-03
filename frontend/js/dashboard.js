@@ -30,32 +30,64 @@ async function carregarDashboard() {
   gerarGrafico(serie);
 }
 
-function gerarGrafico(vendas) {
-    const ctx = document.getElementById("grafico");
+let chartInstance = null;
 
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: Object.keys(vendas),
-            datasets: [{
-                label: "Faturamento por mês (R$)",
-                data: Object.values(vendas),
-                borderRadius: 6
-            }]
-        },
-        options: {
-            plugins: { legend: false },
-            scales: {
-               y: {
-                  beginAtZero: true,
-                  ticks: {
-                    callback: (value) => formatBRL(value)
-                  }
-               },
-                x: { grid: { display: false } }
-            }
+function gerarGrafico(vendas) {
+  const canvas = document.getElementById("grafico");
+  if (!canvas) return;
+
+  const labels = Object.keys(vendas);
+  const values = Object.values(vendas);
+
+  // Se não tiver dados, evita criar gráfico vazio
+  if (!labels.length) {
+    if (chartInstance) chartInstance.destroy();
+    chartInstance = null;
+    return;
+  }
+
+  if (chartInstance) chartInstance.destroy();
+
+  chartInstance = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: "Faturamento (R$)",
+          data: values,
+          fill: true,
+          tension: 0.35,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          borderWidth: 3
         }
-    });
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false, // ✅ deixa o CSS mandar na altura
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => formatBRL(ctx.parsed.y)
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: (value) => formatBRL(value)
+          }
+        },
+        x: {
+          grid: { display: false }
+        }
+      }
+    }
+  });
 }
 
 // Tema escuro (persistente)
